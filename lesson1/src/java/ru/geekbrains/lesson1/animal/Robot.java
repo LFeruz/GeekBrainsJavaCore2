@@ -1,6 +1,7 @@
 package ru.geekbrains.lesson1.animal;
 
 import ru.geekbrains.lesson1.Participant;
+import ru.geekbrains.lesson1.enums.Color;
 
 /**
  * Робот не является животным, но может учавствовать в соревнованиях
@@ -8,29 +9,55 @@ import ru.geekbrains.lesson1.Participant;
  */
 public class Robot implements Participant {
 
-    private String name;
+    private boolean isOnDistance;
+    private int runDistance;
+    private String name = "робот";
 
-    public Robot(String name) {
+    public Robot (int runDistance) {
+        this.isOnDistance = true;
+        this.runDistance = runDistance;
+    }
+
+    public Robot (String name, int age, int runDistance) {
+        this.isOnDistance = true;
+        this.runDistance = runDistance;
         this.name = name;
     }
 
-    @Override
     public boolean isOnDistance() {
-        return false; // TODO доработать по аналогии с классами животных
+        return isOnDistance;
     }
 
     @Override
     public void run(int distance) {
-        // TODO доработать по аналогии с классами животных
+        if (!isOnDistance) {
+            return;
+        }
+        if (distance > runDistance) {
+            isOnDistance = false;
+            return;
+        }
+        System.out.println(String.format("Робот %s пробежал кросс длинной %d", this.name, distance));
     }
 
     @Override
     public void jump(int height) {
-        // TODO доработать по аналогии с классами животных
+            isOnDistance = false;
+        System.out.println("Робот не может прыгать");
     }
 
     @Override
     public void swim(int distance) {
-        // TODO доработать по аналогии с классами животных
+            isOnDistance = false;
+        System.out.println("Робот не может плыть");
+    }
+
+    @Override
+    public  void status(){
+        if (!isOnDistance){
+            System.out.println(String.format("робот %s не прошел", this.name));
+        } else {
+            System.out.println(String.format("робот %s прошел", this.name));
+        }
     }
 }
