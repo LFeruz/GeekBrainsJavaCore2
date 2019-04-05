@@ -11,6 +11,9 @@ public class SummArray {
         }
         int sum = 0;
         for (int i = 0; i < arr.length; i++) {
+            if (arr[i].length != 4) {
+                throw new MyArraySizeException(String.format("%s на %s ", arr.length , arr[i].length));
+            }
             for (int j = 0; j < arr[i].length; j++) {
                 try {
                     sum +=  Integer.parseInt(arr[i][j]);
@@ -50,14 +53,18 @@ public class SummArray {
         String [][] arr4 = new String[4][4];
 
         arr1 = prepArr(4,4);
-        arr2 = prepArr(4,5);
+        arr2 = prepArr(4,3);
         arr3 = prepArr(3,4);
         arr4 = prepArr(4,4);
         arr4[2][2] = arr4[2][2] + " er";
+
+        String[][] arr ={{"1", "2", "3", "4"}, {"1", "2", "3", "4", "5"}, {"1", "2", "3"}, {"1", "2", "3", "4"}};
 
         runSumm(arr1);
         runSumm(arr2);
         runSumm(arr3);
         runSumm(arr4);
+
+        runSumm(arr);
     }
 }
