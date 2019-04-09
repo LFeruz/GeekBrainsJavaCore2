@@ -123,6 +123,8 @@ public class CollectionApp {
         Collections.fill(strList, "asdasdasd");
 
         List<String> sdfsdf = Arrays.asList("1", "2232", "sdfsdf");
-        List<Integer> ints1 = Arrays.asList(1, 2, 3, 4);
+        List<Integer> ints1 = Arrays.asList(1, 1, 3, 4);
+
+        System.out.println(ints1);
     }
 }
