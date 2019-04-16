@@ -8,7 +8,7 @@ public class HWThreads {
     static final int SIZE = 10000000;
     static final int H = SIZE / 2;
 
-    public static void calc (float[] arr, int cnt, int offset) {
+    public static void Calc (float[] arr, int cnt, int offset) {
         for (int i = offset; i < cnt; i++){
             arr[i] = (float)(arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
         }
@@ -23,7 +23,7 @@ public class HWThreads {
 
         // без потоков
         stTime =  System.currentTimeMillis();
-        calc(arr, SIZE,0);
+        Calc(arr, SIZE,0);
         System.out.printf(" without thread time: %d%n", System.currentTimeMillis() - stTime);
 
 
