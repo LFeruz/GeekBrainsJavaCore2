@@ -59,12 +59,12 @@ public class HWThreads {
         System.arraycopy(arr,0,arr1,0, H);
         System.arraycopy(arr, H,arr2,0, H);
         List<Thread> threadList2 = new ArrayList<>();
-        Thread  RunnableCalc1 = new Thread(new CalcRunnable(arr1, H, 0));
-        threadList2.add(RunnableCalc1);
-        RunnableCalc1.start();
-        Thread  RunnableCalc12= new Thread(new CalcRunnable(arr2, H, 0));
-        threadList2.add(RunnableCalc12);
-        RunnableCalc12.start();
+        Thread  runnableCalc1 = new Thread(new CalcRunnable(arr1, H, 0));
+        threadList2.add(runnableCalc1);
+        runnableCalc1.start();
+        Thread  runnableCalc12= new Thread(new CalcRunnable(arr2, H, 0));
+        threadList2.add(runnableCalc12);
+        runnableCalc12.start();
         for (Thread thr : threadList2) {
             thr.join();
         }
