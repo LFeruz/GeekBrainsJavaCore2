@@ -1,14 +1,12 @@
 package ru.geekbrains.lesson5.homework;
 
-import sun.awt.SunHints;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class HWThreads {
-    static final int size = 10000000;
-    static final int h = size / 2;
+    static final int SIZE = 10000000;
+    static final int H = SIZE / 2;
 
     public static void calc (float[] arr, int cnt, int offset) {
         for (int i = offset; i < cnt; i++){
@@ -16,7 +14,7 @@ public class HWThreads {
         }
     }
     public static void main(String[] args) throws InterruptedException {
-        float[] arr = new float[size];
+        float[] arr = new float[SIZE];
         long stTime;
 
         Arrays.fill(arr,1);
@@ -25,7 +23,7 @@ public class HWThreads {
 
         // без потоков
         stTime =  System.currentTimeMillis();
-        calc(arr, size,0);
+        calc(arr, SIZE,0);
         System.out.printf(" without thread time: %d%n", System.currentTimeMillis() - stTime);
 
 
@@ -35,7 +33,7 @@ public class HWThreads {
 
 
         for (int i= 0;i < 2; i++){
-            Thread newThread = new CalcThread(arr10,h, i*h);
+            Thread newThread = new CalcThread(arr10, H, i* H);
             threadList.add(newThread);
             newThread.start();
         }
@@ -55,23 +53,23 @@ public class HWThreads {
         // с потоками с arraycopy с имплеминтацией Runnable
         stTime =  System.currentTimeMillis();
 
-        float [] arr1 = new float[h];
-        float [] arr2 = new float[h];
+        float [] arr1 = new float[H];
+        float [] arr2 = new float[H];
 
-        System.arraycopy(arr,0,arr1,0,h);
-        System.arraycopy(arr,h,arr2,0,h);
+        System.arraycopy(arr,0,arr1,0, H);
+        System.arraycopy(arr, H,arr2,0, H);
         List<Thread> threadList2 = new ArrayList<>();
-        Thread  RunnableCalc1 = new Thread(new CalcRunnable(arr1,h, 0));
+        Thread  RunnableCalc1 = new Thread(new CalcRunnable(arr1, H, 0));
         threadList2.add(RunnableCalc1);
         RunnableCalc1.start();
-        Thread  RunnableCalc12= new Thread(new CalcRunnable(arr2,h, 0));
+        Thread  RunnableCalc12= new Thread(new CalcRunnable(arr2, H, 0));
         threadList2.add(RunnableCalc12);
         RunnableCalc12.start();
         for (Thread thr : threadList2) {
             thr.join();
         }
-        System.arraycopy(arr1, 0, arr, 0, h);
-        System.arraycopy(arr2, 0, arr, h, h);
+        System.arraycopy(arr1, 0, arr, 0, H);
+        System.arraycopy(arr2, 0, arr, H, H);
 
         System.out.printf(" thread with copy time: %d%n", System.currentTimeMillis() - stTime);
     }
