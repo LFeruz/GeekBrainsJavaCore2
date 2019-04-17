@@ -18,7 +18,7 @@ public class CalcRunnable  implements Runnable {
 
         @Override
         public void run() {
-            CalcRun(arr,cnt,offset);
+            calcRun(arr,cnt,offset);
         }
     }
 

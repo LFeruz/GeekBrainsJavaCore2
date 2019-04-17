@@ -20,7 +20,7 @@ public class CalcThread extends Thread{
 
     @Override
     public void run() {
-        CalcRun(arr,cnt,offset);
+        calcRun(arr,cnt,offset);
     }
 }
 

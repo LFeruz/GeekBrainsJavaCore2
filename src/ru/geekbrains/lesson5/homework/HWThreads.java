@@ -23,7 +23,7 @@ public class HWThreads {
 
         // без потоков
         stTime =  System.currentTimeMillis();
-        Calc(arr, SIZE,0);
+        calc(arr, SIZE,0);
         System.out.printf(" without thread time: %d%n", System.currentTimeMillis() - stTime);
 
 
