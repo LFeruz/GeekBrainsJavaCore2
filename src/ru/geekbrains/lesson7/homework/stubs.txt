@@ -1,1 +1,1 @@
-Заглушка ПР к 7 уроку =(
+stubs for lesson 7 homework
