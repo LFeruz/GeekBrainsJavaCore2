@@ -1,12 +1,12 @@
-package ru.geekbrains.lesson4;
+package ru.geekbrains.lesson7.Client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-import static ru.geekbrains.lesson4.MessagePatterns.AUTH_PATTERN;
-import static ru.geekbrains.lesson4.MessagePatterns.MESSAGE_SEND_PATTERN;
+import static ru.geekbrains.lesson7.Client.MessagePatterns.AUTH_PATTERN;
+import static ru.geekbrains.lesson7.Client.MessagePatterns.MESSAGE_SEND_PATTERN;
 
 public class Network {
 

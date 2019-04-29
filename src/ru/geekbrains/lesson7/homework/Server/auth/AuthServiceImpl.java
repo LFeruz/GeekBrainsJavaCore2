@@ -1,6 +1,6 @@
-package ru.geekbrains.lesson7.auth;
+package ru.geekbrains.lesson7.homework.Server.auth;
 
-import ru.geekbrains.lesson7.User;
+import ru.geekbrains.lesson7.homework.Server.User;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,8 +1,8 @@
-package ru.geekbrains.lesson7;
+package ru.geekbrains.lesson7.Server;
 
-import ru.geekbrains.lesson4.AuthException;
-import ru.geekbrains.lesson7.auth.AuthService;
-import ru.geekbrains.lesson7.auth.AuthServiceImpl;
+import ru.geekbrains.lesson7.Client.AuthException;
+import ru.geekbrains.lesson7.Server.auth.AuthService;
+import ru.geekbrains.lesson7.Server.auth.AuthServiceImpl;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class ChatServer {
 
-    private AuthService authService = new AuthServiceImpl();
+    private AuthService authService = (AuthService) new AuthServiceImpl();
     private Map<String, ClientHandler> clientHandlerMap = Collections.synchronizedMap(new HashMap<>());
 
     public static void main(String[] args) {

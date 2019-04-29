@@ -1,8 +1,8 @@
-package ru.geekbrains.lesson4.swing;
+package ru.geekbrains.lesson7.homework.Client.swing;
 
-import ru.geekbrains.lesson4.MessageReciever;
-import ru.geekbrains.lesson4.Network;
-import ru.geekbrains.lesson4.TextMessage;
+import ru.geekbrains.lesson7.homework.Client.MessageReciever;
+import ru.geekbrains.lesson7.homework.Client.Network;
+import ru.geekbrains.lesson7.homework.Client.TextMessage;
 
 import javax.swing.*;
 import java.awt.*;

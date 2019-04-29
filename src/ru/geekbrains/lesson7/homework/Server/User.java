@@ -1,4 +1,4 @@
-package ru.geekbrains.lesson7;
+package ru.geekbrains.lesson7.homework.Server;
 
 public class User {
 

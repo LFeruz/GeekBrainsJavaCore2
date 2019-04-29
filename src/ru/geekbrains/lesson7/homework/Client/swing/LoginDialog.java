@@ -1,7 +1,7 @@
-package ru.geekbrains.lesson4.swing;
+package ru.geekbrains.lesson7.homework.Client.swing;
 
-import ru.geekbrains.lesson4.AuthException;
-import ru.geekbrains.lesson4.Network;
+import ru.geekbrains.lesson7.homework.Client.AuthException;
+import ru.geekbrains.lesson7.homework.Client.Network;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
