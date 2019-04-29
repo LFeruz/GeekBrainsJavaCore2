@@ -1,11 +1,11 @@
-package ru.geekbrains.lesson7;
+package ru.geekbrains.lesson7.Server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-import static ru.geekbrains.lesson4.MessagePatterns.MESSAGE_SEND_PATTERN;
+import static ru.geekbrains.lesson7.Client.MessagePatterns.MESSAGE_SEND_PATTERN;
 
 public class ClientHandler {
 

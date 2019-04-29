@@ -1,4 +1,4 @@
-package ru.geekbrains.lesson4;
+package ru.geekbrains.lesson7.Client;
 
 public final class MessagePatterns {
 

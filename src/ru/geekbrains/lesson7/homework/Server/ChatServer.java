@@ -1,8 +1,8 @@
-package ru.geekbrains.lesson7;
+package ru.geekbrains.lesson7.homework.Server;
 
-import ru.geekbrains.lesson4.AuthException;
-import ru.geekbrains.lesson7.auth.AuthService;
-import ru.geekbrains.lesson7.auth.AuthServiceImpl;
+import ru.geekbrains.lesson7.homework.Client.AuthException;
+import ru.geekbrains.lesson7.homework.Server.auth.AuthService;
+import ru.geekbrains.lesson7.homework.Server.auth.AuthServiceImpl;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
