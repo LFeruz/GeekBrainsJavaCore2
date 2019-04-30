@@ -1,6 +1,7 @@
 package ru.geekbrains.lesson7.homework.Server;
 
 import ru.geekbrains.lesson7.homework.Client.AuthException;
+import ru.geekbrains.lesson7.homework.Client.TextMessage;
 import ru.geekbrains.lesson7.homework.Server.auth.AuthService;
 import ru.geekbrains.lesson7.homework.Server.auth.AuthServiceImpl;
 
@@ -71,9 +72,13 @@ public class ChatServer {
         return new User(authParts[1], authParts[2]);
     }
 
-    public void sendMessage(String userTo, String userFrom, String msg) {
-        ClientHandler userToClientHandler = clientHandlerMap.get(userTo);
-        // TODO убедиться, что userToClientHandler существует и отправить сообщение
-        // TODO для отправки сообщения нужно вызвать метод userToClientHandler.sendMessage()
+    public void sendMessage(TextMessage msg) throws IOException {
+        ClientHandler userToClientHandler = clientHandlerMap.get(msg.getUserTo());
+        if (userToClientHandler != null){
+            userToClientHandler.sendMessage(msg.getUserFrom(),msg.getUserTo(),msg.getText());
+        } else
+        {
+            System.out.printf("User %s not connected%n", msg.getUserTo());
+        }
     }
 }

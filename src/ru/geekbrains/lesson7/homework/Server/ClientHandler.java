@@ -1,11 +1,14 @@
 package ru.geekbrains.lesson7.homework.Server;
 
+import ru.geekbrains.lesson7.homework.Client.TextMessage;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
 import static ru.geekbrains.lesson7.homework.Client.MessagePatterns.MESSAGE_SEND_PATTERN;
+import static ru.geekbrains.lesson7.homework.Client.MessagePatterns.parseTextMessage;
 
 public class ClientHandler {
 
@@ -23,6 +26,7 @@ public class ClientHandler {
         this.out = new DataOutputStream(socket.getOutputStream());
         this.chatServer = chatServer;
 
+
         this.handleThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -30,13 +34,8 @@ public class ClientHandler {
                     try {
                         String msg = inp.readUTF();
                         System.out.printf("Message from user %s: %s%n", login, msg);
-
-                        // TODO проверить является ли msg сообщением для пользователя
-                        // TODO если да, то переслать это сообщение пользователю
-                        String userTo = "";
-                        String message = "";
-                        sendMessage(userTo, message);
-                        chatServer.sendMessage(userTo, login, message);
+                        TextMessage textMessage = parseTextMessage(msg);
+                        chatServer.sendMessage(textMessage);
                     } catch (IOException e) {
                         e.printStackTrace();
                         break;
@@ -52,7 +51,7 @@ public class ClientHandler {
         return login;
     }
 
-    public void sendMessage(String userTo, String msg) throws IOException {
-        out.writeUTF(String.format(MESSAGE_SEND_PATTERN, userTo, msg));
+    public void sendMessage(String userFrom, String userTo, String msg) throws IOException {
+        out.writeUTF(String.format(MESSAGE_SEND_PATTERN, userFrom, userTo,  msg));
     }
 }

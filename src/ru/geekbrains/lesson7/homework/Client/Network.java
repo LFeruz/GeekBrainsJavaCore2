@@ -5,8 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-import static ru.geekbrains.lesson7.homework.Client.MessagePatterns.AUTH_PATTERN;
-import static ru.geekbrains.lesson7.homework.Client.MessagePatterns.MESSAGE_SEND_PATTERN;
+import static ru.geekbrains.lesson7.homework.Client.MessagePatterns.*;
 
 public class Network {
 
@@ -33,11 +32,10 @@ public class Network {
                 while (true) {
                     try {
                         String text = in.readUTF();
-
-                        // TODO проверить, пришло ли в строке text сообщение
-                        // TODO определить текст и отправителя
-                        TextMessage textMessage = new TextMessage("", login, "");
-                        messageReciever.submitMessage(textMessage);
+                        TextMessage textMessage = parseTextMessage(text);
+                        if (textMessage.getText() != null) {
+                            messageReciever.submitMessage(textMessage);
+                        }
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -66,7 +64,7 @@ public class Network {
     }
 
     public void sendTextMessage(TextMessage message) {
-        sendMessage(String.format(MESSAGE_SEND_PATTERN, message.getUserTo(), message.getText()));
+        sendMessage(String.format(MESSAGE_SEND_PATTERN, message.getUserFrom(),message.getUserTo(), message.getText()));
     }
 
     private void sendMessage(String msg) {

@@ -25,6 +25,8 @@ public class MainWindow extends JFrame implements MessageReciever {
 
     private final JTextField messageField;
 
+    private final JTextField userToField;
+
     private final Network network;
 
     public MainWindow() {
@@ -52,12 +54,13 @@ public class MainWindow extends JFrame implements MessageReciever {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = messageField.getText();
-                if (text != null && !text.trim().isEmpty()) {
-                    TextMessage msg = new TextMessage(network.getLogin(), "ivan", text);
+                String userTo = userToField.getText();
+
+                if (text != null && !text.trim().isEmpty() && userTo != null) {
+                    TextMessage msg = new TextMessage(network.getLogin(), userTo, text);
                     messageListModel.add(messageListModel.size(), msg);
                     messageField.setText(null);
-
-                    // TODO реализовать проверку, что сообщение не пустое
+                    userToField.setText(null);
                     network.sendTextMessage(msg);
                 }
             }
@@ -65,6 +68,8 @@ public class MainWindow extends JFrame implements MessageReciever {
         sendMessagePanel.add(sendButton, BorderLayout.EAST);
         messageField = new JTextField();
         sendMessagePanel.add(messageField, BorderLayout.CENTER);
+        userToField = new JTextField("",5);
+        sendMessagePanel.add(userToField, BorderLayout.WEST);
 
         add(sendMessagePanel, BorderLayout.SOUTH);
         setVisible(true);
