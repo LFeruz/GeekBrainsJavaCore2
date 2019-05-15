@@ -1,6 +1,8 @@
 package ru.geekbrains.lesson8.homework.Client;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,13 +13,20 @@ public final class MessagePatterns {
     public static final String AUTH_FAIL_RESPONSE = "/auth fail";
 
     public static final String DISCONNECT = "/disconnect";
+    public static final String DISCONNECT_SEND = DISCONNECT + " %s";
+
     public static final String CONNECTED = "/connected";
     public static final String CONNECTED_SEND = CONNECTED + " %s";
+
+    public static final String CONNECTION_ERR = CONNECTED + " err";
 
     public static final String MESSAGE_PREFIX = "/w";
     public static final String MESSAGE_SEND_PATTERN = MESSAGE_PREFIX + " %s %s";
 
     public static final Pattern MESSAGE_REC_PATTERN = Pattern.compile("^/w (\\w+) (.+)", Pattern.MULTILINE);
+
+    public static final String GET_USER_LIST = "/getuserlist";
+    public static final String GET_USER_LIST_RESPONCE = GET_USER_LIST + " %s";
 
     public static TextMessage parseTextMessageRegx(String text, String userTo) {
         Matcher matcher = MESSAGE_REC_PATTERN.matcher(text);
@@ -44,6 +53,30 @@ public final class MessagePatterns {
         String[] parts = text.split(" ");
         if (parts.length == 2 && parts[0].equals(CONNECTED)) {
             return parts[1];
+        } else {
+            System.out.println("Unknown message pattern: " + text);
+            return null;
+        }
+    }
+
+    public static String parseDisconnectedMessage(String text) {
+        String[] parts = text.split(" ");
+        if (parts.length == 2 && parts[0].equals(DISCONNECT)) {
+            return parts[1];
+        } else {
+            System.out.println("Unknown message pattern: " + text);
+            return null;
+        }
+    }
+
+    public static ArrayList<String> parseGetUserListMessage(String text) {
+        String[] parts = text.split(" ");
+        ArrayList<String> UserList = new ArrayList();
+        if (parts.length >= 2 && parts[0].equals(GET_USER_LIST)) {
+            for (int i=1;i<=parts.length;i++) {
+                UserList.add(parts[i]);
+            };
+            return UserList;
         } else {
             System.out.println("Unknown message pattern: " + text);
             return null;

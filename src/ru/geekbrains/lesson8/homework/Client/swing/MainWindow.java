@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainWindow extends JFrame implements MessageReciever {
 
@@ -62,8 +63,7 @@ public class MainWindow extends JFrame implements MessageReciever {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = messageField.getText();
-                // TODO отправлять сообщение пользователю выбранному в списке userList
-                String userTo = userField.getText();
+                String userTo = userList.getSelectedValue();
                 if (text != null && !text.trim().isEmpty()) {
                     TextMessage msg = new TextMessage(network.getLogin(), userTo, text);
                     messageListModel.add(messageListModel.size(), msg);
@@ -108,6 +108,8 @@ public class MainWindow extends JFrame implements MessageReciever {
         });
 
         setTitle("Сетевой чат. Пользователь " + network.getLogin());
+
+        network.requestConnectedUserList();
     }
 
     @Override
@@ -142,6 +144,18 @@ public class MainWindow extends JFrame implements MessageReciever {
                 int ix = userListModel.indexOf(login);
                 if (ix >= 0) {
                     userListModel.remove(ix);
+                }
+            }
+        });
+    }
+    @Override
+    public void setUserList(ArrayList<String> users) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                userListModel.clear();
+                for (String user : users){
+                    userListModel.addElement(user);
                 }
             }
         });

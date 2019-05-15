@@ -6,8 +6,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Collections;
-import java.util.List;
+import java.util.ArrayList;
 
 import static ru.geekbrains.lesson8.homework.Client.MessagePatterns.*;
 
@@ -51,7 +50,15 @@ public class Network implements Closeable {
                             continue;
                         }
 
-                        // TODO добавить обработку отключения пользователя
+                        login = parseDisconnectedMessage(text);
+                        if (login != null) {
+                            messageReciever.userDisconnected(login);
+                            continue;
+                        }
+                        ArrayList<String> userList = parseGetUserListMessage(text);
+                        if (userList != null) {
+                            messageReciever.setUserList(userList);
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                         if (socket.isClosed()) {
@@ -91,9 +98,8 @@ public class Network implements Closeable {
         }
     }
 
-    public List<String> requestConnectedUserList() {
-        // TODO реализовать запрос с сервера списка всех подключенных пользователей
-        return Collections.emptyList();
+    public void requestConnectedUserList() {
+        sendMessage(GET_USER_LIST);
     }
 
     public String getLogin() {

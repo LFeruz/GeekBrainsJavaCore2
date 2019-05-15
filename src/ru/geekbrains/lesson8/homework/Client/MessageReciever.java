@@ -1,6 +1,8 @@
 package ru.geekbrains.lesson8.homework.Client;
 
 
+import java.util.ArrayList;
+
 public interface MessageReciever {
 
     void submitMessage(TextMessage message);
@@ -8,4 +10,6 @@ public interface MessageReciever {
     void userConnected(String login);
 
     void userDisconnected(String login);
+
+    void setUserList(ArrayList<String> users);
 }
