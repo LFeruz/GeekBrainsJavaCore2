@@ -55,10 +55,13 @@ public class Network implements Closeable {
                             messageReciever.userDisconnected(login);
                             continue;
                         }
+
                         ArrayList<String> userList = parseGetUserListMessage(text);
                         if (userList != null) {
                             messageReciever.setUserList(userList);
+                            continue;
                         }
+
                     } catch (IOException e) {
                         e.printStackTrace();
                         if (socket.isClosed()) {

@@ -11,7 +11,7 @@ public class AuthServiceImpl implements AuthService {
 
     public AuthServiceImpl() {
         users.put("ivan", "123");
-        users.put("petr", "345");
+        users.put("petr", "123");
         users.put("julia", "789");
     }
 

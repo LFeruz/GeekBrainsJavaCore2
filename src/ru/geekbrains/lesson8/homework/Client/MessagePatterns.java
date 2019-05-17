@@ -16,9 +16,10 @@ public final class MessagePatterns {
     public static final String DISCONNECT_SEND = DISCONNECT + " %s";
 
     public static final String CONNECTED = "/connected";
-    public static final String CONNECTED_SEND = CONNECTED + " %s";
+    public static final String CONNECTED_SEND = CONNECTED + " %s"
+            ;
 
-    public static final String CONNECTION_ERR = CONNECTED + " err";
+    public static final String CONNECTED_ALLREDY = CONNECTED + " %s";
 
     public static final String MESSAGE_PREFIX = "/w";
     public static final String MESSAGE_SEND_PATTERN = MESSAGE_PREFIX + " %s %s";
