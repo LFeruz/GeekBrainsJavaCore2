@@ -158,7 +158,9 @@ public class MainWindow extends JFrame implements MessageReciever {
             public void run() {
                 userListModel.clear();
                 for (String user : users){
-                    userListModel.addElement(user);
+                    if (!user.equals(network.getLogin())) {
+                        userListModel.addElement(user);
+                    }
                 }
             }
         });
