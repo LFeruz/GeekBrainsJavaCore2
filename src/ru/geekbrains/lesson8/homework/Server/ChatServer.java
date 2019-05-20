@@ -117,7 +117,7 @@ public class ChatServer {
         }
     }
     public ArrayList<String> getUserList() {
-        List<String> userList = new ArrayList<>((Collection) clientHandlerMap);
-        return (ArrayList<String>) userList;
+        ArrayList<String> userList = new ArrayList(clientHandlerMap.values());
+        return userList;
     }
 }

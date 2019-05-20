@@ -1,5 +1,6 @@
 package ru.geekbrains.lesson8.homework.Server;
 
+import com.sun.deploy.util.StringUtils;
 import ru.geekbrains.lesson8.homework.Client.TextMessage;
 
 import java.io.DataInputStream;
@@ -81,7 +82,13 @@ public class ClientHandler {
 
     public void sendUserList(ArrayList<String>userList) throws IOException {
         if (socket.isConnected()) {
-            out.writeUTF(String.format(GET_USER_LIST_RESPONCE, String.join(" ", userList)));
+
+            StringBuilder str = new StringBuilder();
+            for (Object o : userList) {
+                str.append(o.toString());
+                str.append(" ");
+            }
+            out.writeUTF(String.format(GET_USER_LIST_RESPONCE, str.toString()));
         }
     }
 }
