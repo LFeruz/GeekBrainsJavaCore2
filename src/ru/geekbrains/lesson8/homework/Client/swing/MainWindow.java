@@ -12,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class MainWindow extends JFrame implements MessageReciever {
 
@@ -148,8 +149,10 @@ public class MainWindow extends JFrame implements MessageReciever {
             }
         });
     }
+
     @Override
-    public void setUserList(ArrayList<String> users) {
+    //public void setUserList(ArrayList<String> users)
+    public void setUserList(Set<String> users) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

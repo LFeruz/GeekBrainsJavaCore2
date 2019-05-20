@@ -7,6 +7,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Set;
 
 import static ru.geekbrains.lesson8.homework.Client.MessagePatterns.*;
 
@@ -56,7 +57,8 @@ public class Network implements Closeable {
                             continue;
                         }
 
-                        ArrayList<String> userList = parseGetUserListMessage(text);
+                        //ArrayList<String> userList = parseGetUserListMessage(text);
+                        Set<String> userList = parseGetUserListMessage(text);
                         if (userList != null) {
                             messageReciever.setUserList(userList);
                             continue;
