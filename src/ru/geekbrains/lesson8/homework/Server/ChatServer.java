@@ -10,9 +10,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static ru.geekbrains.lesson8.homework.Client.MessagePatterns.AUTH_FAIL_RESPONSE;
 import static ru.geekbrains.lesson8.homework.Client.MessagePatterns.AUTH_SUCCESS_RESPONSE;
@@ -49,7 +47,15 @@ public class ChatServer {
                 }
                 if (user != null && authService.authUser(user)) {
                     System.out.printf("User %s authorized successful!%n", user.getLogin());
-                    subscribe(user.getLogin(), socket);
+                    try {
+                        subscribe(user.getLogin(), socket);
+                    } catch (AuthException e) {
+                        System.out.printf("Error! User %s alredy authorized%n", user.getLogin());
+                        out.writeUTF(AUTH_FAIL_RESPONSE);
+                        out.flush();
+                        socket.close();
+                        return;
+                    }
                     out.writeUTF(AUTH_SUCCESS_RESPONSE);
                     out.flush();
                 } else {
@@ -93,14 +99,28 @@ public class ChatServer {
         }
     }
 
-    public void subscribe(String login, Socket socket) throws IOException {
-        // TODO Проверить, подключен ли уже пользователь. Если да, то отправить клиенту ошибку
+    public void subscribe(String login, Socket socket) throws IOException, AuthException {
+        if (clientHandlerMap.get(login) != null ){
+            throw new AuthException();
+        }
         clientHandlerMap.put(login, new ClientHandler(login, socket, this));
         sendUserConnectedMessage(login);
     }
 
-    public void unsubscribe(String login) {
+    public void unsubscribe(String login) throws IOException {
         clientHandlerMap.remove(login);
-        // TODO Отправить всем подключенным пользователям сообщение, что данный пользователь отключился
+        for (ClientHandler clientHandler : clientHandlerMap.values()) {
+            if (!clientHandler.getLogin().equals(login)) {
+                System.out.printf("Sending disconnect notification to %s about %s%n", clientHandler.getLogin(), login);
+                clientHandler.sendDisconnectedMessage(login);
+            }
+        }
+    }
+    /*public ArrayList<String> getUserList() {
+        ArrayList<String> userList = new ArrayList(clientHandlerMap.values());
+        return userList;
+    }*/
+    public Set<String> getUserList() {
+        return Collections.unmodifiableSet(clientHandlerMap.keySet());
     }
 }

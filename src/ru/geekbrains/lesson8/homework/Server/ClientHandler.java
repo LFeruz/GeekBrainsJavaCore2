@@ -1,11 +1,14 @@
 package ru.geekbrains.lesson8.homework.Server;
 
+import com.sun.deploy.util.StringUtils;
 import ru.geekbrains.lesson8.homework.Client.TextMessage;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Set;
 
 import static ru.geekbrains.lesson8.homework.Client.MessagePatterns.*;
 
@@ -42,6 +45,9 @@ public class ClientHandler {
                             System.out.printf("User %s is disconnected%n", login);
                             chatServer.unsubscribe(login);
                             return;
+                        } else if (text.equals(GET_USER_LIST)) {
+                            System.out.printf("Sending user list to %s%n", login);
+                            sendUserList(chatServer.getUserList());
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -67,6 +73,30 @@ public class ClientHandler {
     public void sendConnectedMessage(String login) throws IOException {
         if (socket.isConnected()) {
             out.writeUTF(String.format(CONNECTED_SEND, login));
+        }
+    }
+
+    public void sendDisconnectedMessage(String login) throws IOException {
+        if (socket.isConnected()) {
+            out.writeUTF(String.format(DISCONNECT_SEND, login));
+        }
+    }
+
+    /*public void sendUserList(ArrayList<String>userList) throws IOException {
+        if (socket.isConnected()) {
+
+            StringBuilder str = new StringBuilder();
+            for (Object o : userList) {
+                System.out.println(o.toString());
+                str.append(o.toString());
+                str.append(" ");
+            }
+            out.writeUTF(String.format(GET_USER_LIST_RESPONCE, str.toString()));
+        }
+    }*/
+    public void sendUserList(Set<String> users) throws IOException {
+        if (socket.isConnected()) {
+            out.writeUTF(String.format(GET_USER_LIST_RESPONCE, String.join(" ", users)));
         }
     }
 }
